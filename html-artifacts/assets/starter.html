@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Artifact title</title>
+<style>
+  :root { --bg:#0b0d10; --fg:#e6e8eb; --muted:#9aa3ab; --accent:#7c9cff; --card:#14181d; --border:#262c33; --code:#0e1217; }
+  @media (prefers-color-scheme: light) { :root { --bg:#fff; --fg:#1a1d21; --muted:#5c6670; --accent:#3551d1; --card:#f6f8fa; --border:#e3e7ec; --code:#f6f8fa; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  .wrap { max-width:880px; margin:0 auto; padding:32px 20px 80px; }
+  header h1 { margin:0 0 4px; font-size:1.7rem; letter-spacing:-.01em; }
+  header p { margin:0; color:var(--muted); }
+  nav.tabs { display:flex; gap:4px; flex-wrap:wrap; margin:24px 0 0; border-bottom:1px solid var(--border); }
+  nav.tabs button { background:none; border:none; border-bottom:2px solid transparent; color:var(--muted); padding:10px 14px; font:inherit; cursor:pointer; }
+  nav.tabs button[aria-selected="true"] { color:var(--fg); border-bottom-color:var(--accent); }
+  section.panel { display:none; padding-top:24px; }
+  section.panel[data-active] { display:block; }
+  h2 { font-size:1.25rem; margin:2rem 0 .6rem; letter-spacing:-.01em; }
+  h2:first-child { margin-top:0; }
+  table { width:100%; border-collapse:collapse; margin:1rem 0; }
+  th, td { text-align:left; padding:8px 12px; border-bottom:1px solid var(--border); vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem; text-transform:uppercase; letter-spacing:.04em; }
+  pre, code { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  pre { background:var(--code); border:1px solid var(--border); border-radius:8px; padding:14px 16px; overflow:auto; font-size:.875rem; line-height:1.5; }
+  :not(pre) > code { background:var(--code); border:1px solid var(--border); border-radius:4px; padding:.1em .35em; font-size:.875em; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:16px 18px; }
+  .grid { display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); }
+  .pill { display:inline-block; font-size:.72rem; padding:.18em .5em; border-radius:999px; border:1px solid var(--border); color:var(--muted); }
+  a { color:var(--accent); }
+  svg { max-width:100%; height:auto; }
+  button.copy { background:var(--accent); color:#fff; border:none; border-radius:8px; padding:8px 14px; font:inherit; cursor:pointer; }
+  footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--border); color:var(--muted); font-size:.85rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Artifact title</h1>
+    <p>One line: what this is and how to use it.</p>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true" data-tab="overview">Overview</button>
+    <button role="tab" id="tab-details" aria-controls="panel-details" aria-selected="false" data-tab="details">Details</button>
+    <button role="tab" id="tab-diagram" aria-controls="panel-diagram" aria-selected="false" data-tab="diagram">Diagram</button>
+  </nav>
+
+  <section class="panel" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview" data-panel="overview" data-active>
+    <h2>Overview</h2>
+    <p>Replace with the artifact content. Use <code>.grid</code> + <code>.card</code> for option comparisons, <code>table</code> for tabular data, <code>pre</code> for code, inline <code>svg</code> for diagrams.</p>
+    <div class="grid"><!-- repeat .card per option -->
+      <div class="card"><span class="pill">Option A</span><p>The tradeoff it makes.</p></div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-details" role="tabpanel" aria-labelledby="tab-details" data-panel="details">
+    <h2>Details</h2>
+    <pre><code>function example() { /* annotated code snippet */ }</code></pre>
+  </section>
+
+  <section class="panel" id="panel-diagram" role="tabpanel" aria-labelledby="tab-diagram" data-panel="diagram">
+    <h2>Flow</h2>
+    <svg viewBox="0 0 320 80" role="img" aria-label="Example flow">
+      <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker></defs>
+      <rect x="8" y="24" width="80" height="32" rx="6" fill="none" stroke="currentColor"/>
+      <text x="48" y="44" text-anchor="middle" font-size="12" fill="currentColor">Input</text>
+      <line x1="88" y1="40" x2="128" y2="40" stroke="currentColor" marker-end="url(#arrow)"/>
+      <rect x="128" y="24" width="80" height="32" rx="6" fill="none" stroke="currentColor"/>
+      <text x="168" y="44" text-anchor="middle" font-size="12" fill="currentColor">Process</text>
+      <line x1="208" y1="40" x2="248" y2="40" stroke="currentColor" marker-end="url(#arrow)"/>
+      <rect x="248" y="24" width="64" height="32" rx="6" fill="none" stroke="currentColor"/>
+      <text x="280" y="44" text-anchor="middle" font-size="12" fill="currentColor">Output</text>
+    </svg>
+  </section>
+
+  <!-- Interactive artifact? Render the UI above, then ALWAYS provide an export below. -->
+  <p style="margin-top:32px"><button class="copy" onclick="copyExport()">Copy as JSON</button></p>
+
+  <footer>Generated artifact — open in a browser, or upload to S3 for a shareable link.</footer>
+</div>
+<script>
+  const tabs = document.querySelectorAll('nav.tabs button');
+  const panels = document.querySelectorAll('section.panel');
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => x.setAttribute('aria-selected', String(x === t)));
+    panels.forEach(p => p.toggleAttribute('data-active', p.dataset.panel === t.dataset.tab));
+  }));
+  // Export — replace getState() with the artifact's real state.
+  function getState() { return { example: true }; }
+  function copyExport() {
+    const btn = document.querySelector('button.copy');
+    navigator.clipboard.writeText(JSON.stringify(getState(), null, 2))
+      .then(() => btn.textContent = 'Copied!', () => btn.textContent = 'Copy failed');
+  }
+</script>
+</body>
+</html>

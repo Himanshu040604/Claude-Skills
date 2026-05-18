@@ -1,11 +1,11 @@
 # Claude Skills
 
-Two [Agent Skills](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview)
-for Claude that make working with AI agents safer and more honest: a security
-auditor for skill packages, and a debugging-integrity guard.
+Three [Agent Skills](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview)
+for Claude Code: a security auditor for skill packages, a debugging-integrity
+guard, and a guide for producing rich HTML artifacts instead of flat markdown.
 
 Each skill is a self-contained folder — a `SKILL.md` of instructions Claude
-loads on demand, plus Python helper scripts and a test suite.
+loads on demand, plus any helper scripts, references, or assets it needs.
 
 ## Skills
 
@@ -42,14 +42,33 @@ swallowing exceptions, or claiming "fixed" without proof.
 Complements the `systematic-debugging` skill — it adds the integrity
 guardrails, it doesn't replace the process.
 
+### `html-artifacts`
+
+Helps Claude recognize when an **HTML artifact** is a better deliverable than
+a markdown file — a long spec, a plan, a code/PR review, a research report, or
+a one-off editing/triage interface — and how to make one that's genuinely
+useful. It is *not* "always emit HTML": short answers and diff-reviewed docs
+stay markdown.
+
+- **Decision** — a clear test for when HTML beats markdown (length, tables,
+  diffs, diagrams, interactivity, sharing) and when to stay in markdown.
+- **Five playbooks** — specs/planning, code review, design/prototypes,
+  reports/research, and custom editing interfaces, each with example prompts.
+- **Starter skeleton** — a self-contained, responsive `starter.html` (tabs,
+  code blocks, SVG, an export button) to adapt instead of starting blank.
+
+Distilled from Thariq Shihipar's "The Unreasonable Effectiveness of HTML."
+
 ## Installing
 
-Both skills need Python 3.12+ for their helper scripts.
+`skill-security-audit` and `skeptical-debugger` need Python 3.12+ for their
+helper scripts; `html-artifacts` has none.
 
 ```bash
 git clone https://github.com/Himanshu040604/Claude-Skills.git
 cp -r Claude-Skills/skill-security-audit ~/.claude/skills/
 cp -r Claude-Skills/skeptical-debugger  ~/.claude/skills/
+cp -r Claude-Skills/html-artifacts      ~/.claude/skills/
 ```
 
 Claude Code discovers skills in `~/.claude/skills/` automatically.
@@ -63,16 +82,20 @@ Claude-Skills/
 │   ├── scripts/      scan_patterns.py · fileio.py · patterns.json
 │   ├── references/   threat-checklist.md
 │   └── tests/        pytest suite + fixtures
-└── skeptical-debugger/
+├── skeptical-debugger/
+│   ├── SKILL.md
+│   ├── scripts/      parse_diff.py · detect_cheats.py · cheat_patterns.json
+│   ├── references/   gaming-vs-legitimate.md
+│   └── tests/        pytest suite + fixtures
+└── html-artifacts/
     ├── SKILL.md
-    ├── scripts/      parse_diff.py · detect_cheats.py · cheat_patterns.json
-    ├── references/   gaming-vs-legitimate.md
-    └── tests/        pytest suite + fixtures
+    ├── references/   use-case-playbooks.md
+    └── assets/       starter.html
 ```
 
 ## Running the tests
 
-From either skill's directory:
+From `skill-security-audit/` or `skeptical-debugger/`:
 
 ```bash
 uv run --with pytest pytest tests/ -v
