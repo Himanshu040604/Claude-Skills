@@ -9,7 +9,7 @@ loads on demand, plus Python helper scripts and a test suite.
 
 ## Skills
 
-### 🛡️ `skill-security-audit`
+### `skill-security-audit`
 
 Audits a Claude skill package for malicious or unsafe content **before you
 install it**. An untrusted skill is both a prompt-injection surface (its
